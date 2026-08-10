@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - JZB4 Studios</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Zen+Dots&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" asp-controller="Home" asp-action="Index">
+            <img src="~/images/JZB4-Logo-512-Rounded.png" alt="JZB4 Studios logo" />
+        </a>
+        <nav class="site-nav">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <a asp-controller="Home" asp-action="Games">Games</a>
+            <a asp-controller="Home" asp-action="Services">Services</a>
+            <a asp-controller="Home" asp-action="About">About</a>
+            <a asp-controller="Blog" asp-action="Index">Updates</a>
+            <a asp-controller="Contact" asp-action="Index">Contact</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        &copy; @DateTime.Now.Year JZB4 Studios. All rights reserved.
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

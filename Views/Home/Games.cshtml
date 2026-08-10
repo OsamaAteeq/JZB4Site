@@ -1,0 +1,21 @@
+﻿@model List<GameStudioSite.Models.Game>
+@{
+    ViewData["Title"] = "Games";
+}
+
+<h1>Our Games</h1>
+<p>Check out what we've built. Click any game to play it on itch.io.</p>
+
+<div class="card-grid">
+    @foreach (var game in Model)
+    {
+        <div class="card">
+            <img src="@game.ImageUrl" alt="@game.Title" />
+            <div class="card-body">
+                <h3>@game.Title</h3>
+                <p>@game.Description</p>
+                <a class="btn" href="@game.ItchIoUrl" target="_blank" rel="noopener">Play Now</a>
+            </div>
+        </div>
+    }
+</div>
