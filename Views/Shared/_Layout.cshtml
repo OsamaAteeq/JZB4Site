@@ -13,14 +13,36 @@
 <body>
     <header class="site-header">
         <a class="logo" asp-controller="Home" asp-action="Index">
-            <img src="~/images/JZB4-Logo-512-Rounded.png" alt="JZB4 Studios logo" />
+            <img src="~/images/JZB4-Logo-512-Rounded.png" alt="JZB4 rounded logo" />
         </a>
+        @{
+            var action = ViewContext.RouteData.Values["action"]?.ToString();
+
+            var headerImage = action switch
+            {
+                "Index" => "~/images/header-home.jpg",
+                "Games" => "~/images/header-games.jpg",
+                "About" => "~/images/header-about.jpg",
+                "Blog" => "~/images/header-blog.jpg",
+                "Services" => "~/images/header-services.jpg",
+                "Contact" => "~/images/header-contact.jpg",
+                _ => "~/images/header-home.jpg"
+            };
+
+            var headerClass = action switch
+            {
+                "Index" => "header-image-home",
+                _ => "header-image"
+            };
+            
+        }
+
+        <img src="@Url.Content(headerImage)" class="@headerClass" alt="Header Image" />
         <nav class="site-nav">
-            <a asp-controller="Home" asp-action="Index">Home</a>
             <a asp-controller="Home" asp-action="Games">Games</a>
             <a asp-controller="Home" asp-action="Services">Services</a>
             <a asp-controller="Home" asp-action="About">About</a>
-            <a asp-controller="Blog" asp-action="Index">Updates</a>
+            <a asp-controller="Blog" asp-action="Index">Blog</a>
             <a asp-controller="Contact" asp-action="Index">Contact</a>
         </nav>
     </header>
