@@ -11,41 +11,68 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-    <header class="site-header">
-        <a class="logo" asp-controller="Home" asp-action="Index">
-            <img src="~/images/JZB4-Logo-512-Rounded.png" alt="JZB4 rounded logo" />
-        </a>
-        @{
+    @{
+            var controller = ViewContext.RouteData.Values["controller"]?.ToString();
             var action = ViewContext.RouteData.Values["action"]?.ToString();
 
-            var headerImage = action switch
+            var headerImage = (controller, action) switch
             {
-                "Index" => "~/images/header-home.jpg",
-                "Games" => "~/images/header-games.jpg",
-                "About" => "~/images/header-about.jpg",
-                "Blog" => "~/images/header-blog.jpg",
-                "Services" => "~/images/header-services.jpg",
-                "Contact" => "~/images/header-contact.jpg",
+                ("Home", "Index") => "~/images/header-home.jpg",
+                ("Home", "Games") => "~/images/header-games.jpg",
+                ("Home", "About") => "~/images/header-about.jpg",
+                ("Home", "Services") => "~/images/header-services.jpg",
+                ("Blog", "Index") => "~/images/header-blog.jpg",
+                ("Contact", "Index") => "~/images/header-contact.jpg",
                 _ => "~/images/header-home.jpg"
             };
 
-            var headerClass = action switch
+            var headerClass = (controller, action) switch
             {
-                "Index" => "header-image-home",
+                ("Home", "Index") => "header-image-home",
                 _ => "header-image"
             };
-            
         }
+    <div class="hero">
+        <header class="site-header">
+            <a class="logo" asp-controller="Home" asp-action="Index">
+                <img src="~/images/JZB4-Logo-512-Rounded.png" alt="JZB4 rounded logo" />
+            </a>
+            <nav class="site-nav">
+                <a asp-controller="Home" asp-action="Games">Games</a>
+                <a asp-controller="Home" asp-action="Services">Services</a>
+                <a asp-controller="Home" asp-action="About">About</a>
+                <a asp-controller="Blog" asp-action="Index">Blog</a>
+                <a asp-controller="Contact" asp-action="Index">Contact</a>
+            </nav>
+        </header>
+        
 
-        <img src="@Url.Content(headerImage)" class="@headerClass" alt="Header Image" />
-        <nav class="site-nav">
-            <a asp-controller="Home" asp-action="Games">Games</a>
-            <a asp-controller="Home" asp-action="Services">Services</a>
-            <a asp-controller="Home" asp-action="About">About</a>
-            <a asp-controller="Blog" asp-action="Index">Blog</a>
-            <a asp-controller="Contact" asp-action="Index">Contact</a>
-        </nav>
-    </header>
+        @{
+            if (controller == "Home" || action == "Index")
+            {
+                <div class="hero-background">
+                    <img src="@Url.Content(headerImage)" alt="Header Image" class="@(ViewData["FixedHero"] as bool? == true ? "hero-background-moving" : "hero-background-fixed")" />
+                </div>
+                
+            }
+
+            if (controller == "Home" && action == "Index")
+            {
+                <div class="hero-content">
+                    <img src="\images\cropped-JZB4-Logo-blue-text-512x512.png.png" alt="JZB4 full logo" />
+                    <h1 class="slogan">@ViewData["HeroText"]</h1>
+                </div>
+            }
+            else
+            {
+                <div class="hero-content">
+                    <h1>@ViewData["HeroText"]</h1>
+                </div>
+            }
+
+        }
+    </div>
+    
 
     <main class="main-content">
         @RenderBody()
