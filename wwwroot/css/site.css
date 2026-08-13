@@ -41,6 +41,11 @@ h1 {
     white-space: nowrap;
     text-transform: uppercase;
 }
+h2 {
+    font-size: clamp(2rem, 3vw, 3rem);
+    white-space: nowrap;
+    text-transform: uppercase;
+}
 
 a {
     color: var(--color-lavender-light);
@@ -62,31 +67,6 @@ a {
     z-index: 1;
 }
 
-.header-image-home {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    opacity: 0.3; /* transparency: 0 = invisible, 1 = opaque */
-
-    z-index: -1;
-    pointer-events: none; /* allows clicks to pass through */
-}
-
-.header-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    opacity: 0.3; /* transparency: 0 = invisible, 1 = opaque */
-
-    z-index: -1;
-    pointer-events: none; /* allows clicks to pass through */
-}
 
     .site-header .logo img {
         height: 5rem;
@@ -116,6 +96,11 @@ a {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+}
+.dark-div {
+    font-family: var(--font-body);
+    background-color: var(--color-black);
+    color: var(--color-lavender-light);
 }
 
 /* Buttons */
@@ -169,11 +154,17 @@ a {
     text-align: center;
     padding: 1.5rem;
     font-size: 0.85rem;
-    margin-top: 3rem;
 }
 
 .hero {
     min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.hero-small {
+    min-height: 85vh;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -200,7 +191,7 @@ a {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 85vh;
     object-fit: cover;
     opacity: 0.3;
     z-index: -1;

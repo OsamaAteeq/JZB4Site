@@ -32,7 +32,7 @@
                 _ => "header-image"
             };
         }
-    <div class="hero">
+    <div class="@(ViewData["FixedHero"] as bool? == true ? "hero" : "hero-small")">
         <header class="site-header">
             <a class="logo" asp-controller="Home" asp-action="Index">
                 <img src="~/images/JZB4-Logo-512-Rounded.png" alt="JZB4 rounded logo" />
