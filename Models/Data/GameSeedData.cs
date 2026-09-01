@@ -2,7 +2,7 @@
 {
     public static class GameSeedData
     {
-        public static List<Game> All => new()
+        private static readonly List<Game> _games = new()
         {
             new Game
             {
@@ -37,5 +37,15 @@
                 ItchIoUrl = "https://jzb4-studios.itch.io/space-adventure"
             }
         };
+
+        public static List<Game> GetLatest(int count)
+        {
+            return _games.Take(count).ToList();
+        }
+
+        public static List<Game> All()
+        {
+            return _games.ToList();
+        }
     }
 }

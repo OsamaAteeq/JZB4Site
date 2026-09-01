@@ -11,12 +11,18 @@
 <div class="card-grid">
     @foreach (var service in Model)
     {
-        <div class="card">
-            <div class="card-body">
+        <a class="service-card"
+           asp-controller="Home"
+           asp-action="Services"
+           style="--card-image: url('@service.PictureSecondary');">
+
+            <div class="service-card-content">
                 <h3>@service.Title</h3>
-                <p>@service.Description</p>
-                <a class="btn" asp-controller="Contact" asp-action="Index">Contact Us</a>
+                <p>
+                    @service.ShortDescription
+                </p>
             </div>
-        </div>
+
+        </a>
     }
 </div>

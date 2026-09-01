@@ -44,6 +44,9 @@
                 <a asp-controller="Blog" asp-action="Index">Blog</a>
                 <a asp-controller="Contact" asp-action="Index">Contact</a>
             </nav>
+            <button class="menu-toggle" id="menuToggle">
+                ☰
+            </button>
         </header>
         
 
@@ -71,13 +74,13 @@
             }
 
         }
-    </div>
-    
 
+        <div class="gradient-trans-black">
+        </div>
+    </div>
     <main class="main-content">
         @RenderBody()
     </main>
-
     <footer class="site-footer">
         &copy; @DateTime.Now.Year JZB4 Studios. All rights reserved.
     </footer>
@@ -85,6 +88,16 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+        const nav = document.querySelector(".site-header nav");
+
+        menuToggle.addEventListener("click", () => {
+            nav.classList.toggle("active");
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

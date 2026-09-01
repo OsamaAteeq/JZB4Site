@@ -15,7 +15,14 @@ namespace GameStudioSite.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new HomeIndexViewModel
+            {
+                Services = ServiceSeedData.All,
+                LatestGames = GameSeedData.GetLatest(3),
+                LatestBlogPosts = BlogPostSeedData.GetLatest(2)
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
@@ -31,7 +38,7 @@ namespace GameStudioSite.Controllers
 
         public IActionResult Games()
         {
-            return View(GameSeedData.All);
+            return View(GameSeedData.All());
         }
 
         public IActionResult Services()
