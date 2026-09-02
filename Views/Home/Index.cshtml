@@ -44,8 +44,6 @@
     </div>
     <div class="dark-background">
         <h2>Services</h2>
-        <p>What we can build for you.</p>
-
         <div class="service-grid">
             @foreach (var service in Model.Services)
             {
@@ -73,14 +71,27 @@
     <div class="gradient-black-blue">
     </div>
     <div class="light-background">
-        <div class="horizontal-content">
-            <div class="vertical-content">
-                <h2>Latest News</h2>
-                <p> Change this section to latest news, bla blabla blaaa</p>
-                <a class="btn" asp-controller="Home" asp-action="About">Learn more</a>
-            </div>
-            <img src="\images\home-about.jpg" alt="JZB4 full logo" />
+        <h2>Latest Updates</h2>
+        <div class="update-grid">
+            @foreach (var update in Model.LatestBlogPosts)
+            {
+                <a class="update-card"
+                   asp-controller="Update"
+                   asp-action="@update.Slug">
+                    <div class="update-card-image">
+                        <img src="@update.FeaturedImageUrl" alt="@update.ImageAltText"/>
+                    </div>
+                    <div class="update-card-content">
+                        <h4>
+                            @update.Title
+                        </h4>
+                        <p>
+                            @update.Excerpt
+                        </p>
+                    </div>
 
+                </a>
+            }
         </div>
     </div>
     <div class="gradient-blue-trans">
