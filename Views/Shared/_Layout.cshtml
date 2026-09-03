@@ -7,15 +7,26 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Zen+Dots&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     @{
-            var controller = ViewContext.RouteData.Values["controller"]?.ToString();
-            var action = ViewContext.RouteData.Values["action"]?.ToString();
+        var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+        var action = ViewContext.RouteData.Values["action"]?.ToString();
+        var gradient = "gradient-trans-black";
 
-            var headerImage = (controller, action) switch
+        if (ViewData["Gradient"] != null && ViewData["Gradient"] as string != "")
+        {
+            gradient = ViewData["Gradient"] as string;
+        }
+        else
+        {
+            gradient = "gradient-trans-black";
+        }
+        var headerImage = (controller, action) switch
             {
                 ("Home", "Index") => "~/images/header-home.jpg",
                 ("Home", "Games") => "~/images/header-games.jpg",
@@ -38,11 +49,11 @@
                 <img src="~/images/JZB4-Logo-512-Rounded.png" alt="JZB4 rounded logo" />
             </a>
             <nav class="site-nav">
-                <a asp-controller="Home" asp-action="Games">Games</a>
-                <a asp-controller="Home" asp-action="Services">Services</a>
-                <a asp-controller="Home" asp-action="About">About</a>
-                <a asp-controller="Update" asp-action="Index">Updates</a>
-                <a asp-controller="Contact" asp-action="Index">Contact</a>
+                <a class="@((controller, action) == ("Home", "Games") ? "active" : "")" asp-controller="Home" asp-action="Games">Games</a>
+                <a class="@((controller, action) == ("Home", "Services") ? "active" : "")" asp-controller="Home" asp-action="Services">Services</a>
+                <a class="@((controller, action) == ("Home", "About") ? "active" : "")" asp-controller="Home" asp-action="About">About</a>
+                <a class="@((controller, action) == ("Update", "Index") ? "active" : "")" asp-controller="Update" asp-action="Index">Updates</a>
+                <a class="@((controller, action) == ("Contact", "Index") ? "active" : "")" asp-controller="Contact" asp-action="Index">Contact</a>
             </nav>
             <button class="menu-toggle" id="menuToggle">
                 ☰
@@ -75,14 +86,70 @@
 
         }
 
-        <div class="gradient-trans-black">
+        <div class="@gradient">
         </div>
     </div>
     <main class="main-content">
         @RenderBody()
     </main>
     <footer class="site-footer">
-        &copy; @DateTime.Now.Year JZB4 Studios. All rights reserved.
+
+         <a asp-controller="Home" asp-action="Index" class="logo">
+            <img src="\images\cropped-JZB4-Logo-blue-text-512x512.png.png" alt="JZB4 Studios">
+            </a>
+
+        <hr class="footer-divider">
+        <div class="footer-content">
+        <nav class="footer-navigation" aria-label="Footer Navigation">
+                <a asp-controller="Home" asp-action="Games">Games</a>
+                <a asp-controller="Home" asp-action="Services">Services</a>
+                <a asp-controller="Home" asp-action="About">About</a>
+                <a asp-controller="Update" asp-action="Index">Updates</a>
+                <a asp-controller="Contact" asp-action="Index">Contact</a>
+        </nav>
+
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/jzb4-studios"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+
+            <a href="https://www.facebook.com/people/JZB4-Studios/61557296292206/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+
+            <a href="https://www.instagram.com/jzb4_studios/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="https://twitter.com/JZB4Studios"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="X">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+
+            <a href="https://jzb4-studios.itch.io/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Itch.io">
+                <i class="fa-brands fa-itch-io"></i>
+            </a>
+        </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            &copy; @DateTime.Now.Year JZB4 Studios. All rights reserved.
+        </div>
+
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

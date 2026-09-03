@@ -4,20 +4,57 @@
     ViewData["HeroText"] = "Our Games";
     ViewData["HeroImage"] = "/images/header-games.jpg";
 }
-
-<h2>Our Games</h2>
-<p>Check out what we've built. Click any game to play it on itch.io.</p>
-
-<div class="card-grid">
-    @foreach (var game in Model)
+@{
+    string divClass = "dark-background";
+    string gradientClass = "gradient-black-blue";
+    for (int i = 0; i < Model.Count; i++)
     {
-        <div class="card">
-            <img src="@game.ImageUrl" alt="@game.Title" />
-            <div class="card-body">
-                <h3>@game.Title</h3>
-                <p>@game.Description</p>
-                <a class="btn" href="@game.ItchIoUrl" target="_blank" rel="noopener">Play Now</a>
+        var game = Model[i];
+        if (i % 2 != 0)
+        {
+            divClass = "light-background";
+            gradientClass = "gradient-blue-black";
+        }
+        else
+        {
+            divClass = "dark-background";
+            gradientClass = "gradient-black-blue";
+        }
+        if (i == Model.Count - 1)
+        {
+            if (divClass == "dark-background")
+            {
+                gradientClass = "gradient-black-actual-black";
+            }
+            else
+            {
+                gradientClass = "gradient-blue-actual-black";
+            }
+        }
+        <div class="@divClass">
+            <div class="horizontal-content image-first-mobile">
+                @if (i % 2 == 0)
+                {
+                    <div class="vertical-content">
+                        <h3 class="center-text">@game.Title</h3>
+                        <p class="center-text"> @game.Description</p>
+                        <a class="btn" href="@game.ItchIoUrl" target="_blank" rel="noopener">Play Now</a>
+                    </div>
+                    <img src="@game.ImageUrl" alt="@game.Title" />
+                }
+                else
+                {
+
+                    <img src="@game.ImageUrl" alt="@game.Title" />
+                    <div class="vertical-content">
+                        <h3 class="center-text">@game.Title</h3>
+                        <p class="center-text"> @game.Description</p>
+                        <a class="btn" href="@game.ItchIoUrl" target="_blank" rel="noopener">Play Now</a>
+                    </div>
+                }
             </div>
         </div>
+        <div class="@gradientClass">
+        </div>
     }
-</div>
+}

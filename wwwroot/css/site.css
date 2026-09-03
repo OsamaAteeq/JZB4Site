@@ -102,6 +102,7 @@ img {
     .site-header .logo img {
         height: clamp(5rem, 5vw, 10rem);
         width: auto;
+        opacity: 100%;
     }
 
 .site-nav {
@@ -120,6 +121,9 @@ img {
         .site-nav a:hover,
         .site-nav a.active {
             color: var(--color-accent-cyan);
+        }
+        .site-nav a.active {
+            font-weight:600;
         }
 
 .menu-toggle {
@@ -187,7 +191,7 @@ img {
 .btn {
     display: inline-block;
     background-color: var(--color-brand-blue);
-    color: var(--color-black);
+    color: var(--color-lavender-light);
     padding: 0.6rem 1.4rem;
     border-radius: 6px;
     font-weight: 600;
@@ -234,6 +238,62 @@ img {
     text-align: center;
     padding: 1.5rem;
     font-size: 0.85rem;
+    flex: 1;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+
+.footer-navigation {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem 2rem;
+    font-size: 1rem;
+}
+
+.footer-socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    font-size: 1.8rem;
+}
+
+.footer-content {
+    flex: 1;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    padding-block: 2rem;
+}
+
+.footer-divider {
+    width: 100%;
+}
+
+.footer-navigation a,
+.footer-socials a,
+.footer-socials a i {
+    color: var(--color-lavender-light);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+    .footer-navigation a:hover,
+    .footer-socials a:hover,
+    .footer-socials a:hover i {
+        color: var(--color-accent-cyan);
+    }
+
+.site-footer .logo img {
+    height: clamp(5rem, 8vw, 10rem);
+    width: auto;
+    margin-right: 0.5rem;
 }
 
 /* Hero */
@@ -292,6 +352,7 @@ img {
         width: clamp(20rem, 30vw, 50rem);
         height: auto;
         margin-right: 0.5rem;
+        opacity:100%;
     }
 
 .slogan {
@@ -322,12 +383,16 @@ img {
         width: 40%;
         object-fit: cover;
     }
-
+    .bright-contain img{
+        opacity: 90%;
+        object-fit: contain;
+    }
 .vertical-content {
     flex: 1;
     flex-direction: column;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 
@@ -362,6 +427,19 @@ img {
 .gradient-trans-actual-black {
     height: 10vh;
     background: linear-gradient( to bottom, rgba(17, 17, 17, 0), rgba(17, 17, 17, 1) );
+}
+.gradient-blue-actual-black {
+    height: 10vh;
+    background: linear-gradient( to bottom, var(--color-midnight-blue), rgba(17, 17, 17, 1) );
+}
+.gradient-black-actual-black {
+    height: 10vh;
+    background: linear-gradient( to bottom, var(--color-navy-black), rgba(17, 17, 17, 1) );
+}
+
+.spacer {
+    height: 10vh;
+    background-color: transparent;
 }
 
 
@@ -525,7 +603,7 @@ img {
     grid-template-rows: 50% 50%;
     overflow: hidden;
     gap: 0;
-    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
     background-color: var(--color-black);
     color: var(--color-lavender-light);
     text-decoration: none;
@@ -560,6 +638,7 @@ img {
     }
 
 .update-card-content {
+    width: 100%;
     z-index: 1;
     padding: 2rem;
     padding-top: 0;
@@ -613,7 +692,6 @@ img {
             height: clamp(3rem, 8vw, 5rem);
             width: auto;
         }
-
     .game-grid {
         gap: 0;
     }
@@ -632,6 +710,12 @@ img {
             width: 100%;
             height: auto;
             max-height: 400px;
+        }
+        .image-first-mobile img {
+            order: 1;
+        }
+        .image-first-mobile .vertical-content {
+            order: 2;
         }
     .site-header {
         padding: 0.5rem clamp(1rem, 6vw, 2rem);
