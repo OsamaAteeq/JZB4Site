@@ -1,0 +1,59 @@
+﻿@model GameStudioSite.Models.ContactFormModel
+@using GameStudioSite.Models
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<h1>Contact Us</h1>
+<p>Got a question, a project idea, or just want to say hi? Send us a message.</p>
+
+<form asp-action="Index" method="post" class="contact-form">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="field-validation-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LastName"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="field-validation-error"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Subject"></label>
+        <select asp-for="Subject" asp-items="ContactFormModel.SubjectOptions.Select(s => new SelectListItem(s, s))" class="form-control">
+            <option value="">-- Select a subject --</option>
+        </select>
+        <span asp-validation-for="Subject" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Message"></label>
+        <textarea asp-for="Message" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Message" class="field-validation-error"></span>
+    </div>
+
+    <div class="honeypot-field" aria-hidden="true">
+        <label asp-for="Website"></label>
+        <input asp-for="Website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <button type="submit" class="btn">Send Message</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
