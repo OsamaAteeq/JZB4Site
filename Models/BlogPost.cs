@@ -11,5 +11,7 @@
         public DateTime PublishedDate { get; set; }
 
         public string ImageAltText { get; set; } = "";
+        public string Category { get; set; } = "";
+        public List<string> Tags { get; set; } = new();
     }
 }

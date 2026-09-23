@@ -1,6 +1,7 @@
-﻿@model GameStudioSite.Models.HomeIndexViewModel
+﻿@using GameStudioSite.Models
+@model HomeIndexViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "";
     ViewData["HeroText"] = "Passion Powers Play";
     ViewData["HeroImage"] = "/images/header-home.jpg";
     ViewData["FixedHero"] = true;
@@ -13,6 +14,7 @@
                     <a class="game-card"
                        asp-controller="Home"
                        asp-action="Games"
+                       asp-fragment="@game.Slug"
                        style="--card-image: url('@game.ImageUrl');">
 
                         <div class="game-card-content">
@@ -50,6 +52,7 @@
                 <a class="service-card"
                    asp-controller="Home"
                    asp-action="Services"
+                   asp-fragment="@service.Slug"
                    style="--card-image: url('@service.PictureSecondary');">
 
                     <div class="service-card-content">

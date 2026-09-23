@@ -3,8 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - JZB4 Studios</title>
+    <title>
+        @(string.IsNullOrEmpty(ViewData["Title"]?.ToString())
+                ? "JZB4 Studios"
+                : $"JZB4 Studios - {ViewData["Title"]}")
+    </title>
 
+    <link rel="icon" type="image/svg" href="~/images/JZB4-Logo-512-Rounded.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Zen+Dots&display=swap" rel="stylesheet">
     <link rel="stylesheet"
@@ -32,7 +37,7 @@
                 ("Home", "Games") => "~/images/header-games.jpg",
                 ("Home", "About") => "~/images/header-about.jpg",
                 ("Home", "Services") => "~/images/header-services.jpg",
-                ("Update", "Index") => "~/images/header-blog.jpg",
+                ("Updates", "Index") => "~/images/header-blog.jpg",
                 ("Contact", "Index") => "~/images/header-contact.jpg",
                 _ => "~/images/header-home.jpg"
             };
@@ -52,7 +57,7 @@
                 <a class="@((controller, action) == ("Home", "Games") ? "active" : "")" asp-controller="Home" asp-action="Games">Games</a>
                 <a class="@((controller, action) == ("Home", "Services") ? "active" : "")" asp-controller="Home" asp-action="Services">Services</a>
                 <a class="@((controller, action) == ("Home", "About") ? "active" : "")" asp-controller="Home" asp-action="About">About</a>
-                <a class="@((controller, action) == ("Update", "Index") ? "active" : "")" asp-controller="Update" asp-action="Index">Updates</a>
+                <a class="@((controller, action) == ("Updates", "Index") ? "active" : "")" asp-controller="Updates" asp-action="Index">Updates</a>
                 <a class="@((controller, action) == ("Contact", "Index") ? "active" : "")" asp-controller="Contact" asp-action="Index">Contact</a>
             </nav>
             <button class="menu-toggle" id="menuToggle">
@@ -104,7 +109,7 @@
                 <a asp-controller="Home" asp-action="Games">Games</a>
                 <a asp-controller="Home" asp-action="Services">Services</a>
                 <a asp-controller="Home" asp-action="About">About</a>
-                <a asp-controller="Update" asp-action="Index">Updates</a>
+                <a asp-controller="Updates" asp-action="Index">Updates</a>
                 <a asp-controller="Contact" asp-action="Index">Contact</a>
         </nav>
 

@@ -673,6 +673,180 @@ img {
     }
 
 
+/* Update List Card*/
+.update-list-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: clamp(1rem, 1.5vw, 2rem);
+    width: 100%;
+}
+
+.update-list-card {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    overflow: hidden;
+    gap: 0;
+    grid-template-rows: minmax(0, 1fr);
+    background-color: var(--color-black);
+    color: var(--color-lavender-light);
+    text-decoration: none;
+    border-radius: 20px;
+    justify-content: center;
+}
+
+.update-list-card-image {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+    .update-list-card-image img {
+        opacity: 70%;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1);
+        transition: transform 0.4s ease;
+        will-change: transform;
+    }
+
+.update-list-card:hover .update-list-card-image img {
+    transform: scale(1.05);
+}
+
+.update-list-card:hover {
+    color: var(--color-lavender-light);
+    text-decoration: none;
+}
+
+.update-list-card-content {
+    width: 100%;
+    z-index: 1;
+    padding: 2rem;
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    transition: background 0.4s ease;
+}
+
+.update-list-card:hover .update-list-card-content {
+    background: rgba(4, 201, 203, 0.08);
+}
+
+.update-list-card-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: center;
+    width: 100%;
+    font-size:x-small;
+    margin-top: 0.5rem;
+}
+    .update-list-card-info .left {
+        align-items: center;
+        justify-content: left;
+        padding-right: 0.5rem;
+        font-size: x-small;
+        margin:0;
+        height: auto;
+        max-height: 2.2lh;
+    }
+    .update-list-card-info .left span {
+        display: inline-block;
+        padding: 0 0.5rem;
+        border: 1px solid var(--color-lavender);
+        border-radius: 60px;
+    }
+.update-list-card-info .right{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: right;
+    text-wrap: nowrap;
+    margin-left:auto;
+}
+
+.update-list-card-content h4 {
+    height: 3lh;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-transform: none;
+    font-family: var(--font-heading);
+    align-content: center;
+    margin-bottom: 0;
+}
+
+.update-list-card-content p {
+    height: 3lh;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+/*Update List Filtering and pages*/
+
+.filter-bar {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0 2rem;
+    flex-wrap: wrap;
+}
+
+    .filter-bar a,
+    .pagination a {
+        padding: 0.4rem 1rem;
+        border: 1px solid var(--color-lavender);
+        border-radius: 6px;
+        text-decoration: none;
+    }
+
+        .filter-bar a.active,
+        .pagination a.active {
+            background-color: var(--color-brand-blue);
+            color: var(--color-white);
+        }
+        .filter-bar a:hover,
+        .pagination a:hover {
+            background-color: var(--color-brand-blue);
+            color: var(--color-white);
+        }
+
+.pagination {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    min-width: 0;
+}
+
+.pagination-dots {
+    display: flex;
+    align-items: center;
+    padding: 0 0.25rem;
+}
+
+.pagination-pages {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    min-width: 0;
+    scrollbar-width: auto;
+}
+
+    .pagination-pages::-webkit-scrollbar {
+        display: none;
+    }
+
+
 /* Small desktop / laptop */
 @media (max-width: 1200px) {
     .service-grid {
@@ -695,6 +869,14 @@ img {
     .game-grid {
         gap: 0;
     }
+
+    .update-list-card {
+        display: flex;
+        max-height: 70vh;
+        flex-direction: column;
+        flex: 1;
+    }
+
 }
 
 
@@ -771,5 +953,21 @@ img {
     }
     .slogan {
         white-space: break-spaces;
+    }
+    .pagination > a {
+        flex-shrink: 0;
+    }
+
+    .pagination-pages > * {
+        flex-shrink: 0;
+    }
+    .pagination-pages {
+        padding-bottom: 1rem;
+    }
+
+
+    .pagination .side {
+        margin-bottom:1rem;
+        height: 2.1rem;
     }
 }

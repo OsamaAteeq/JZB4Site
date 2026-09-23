@@ -31,7 +31,7 @@
                 gradientClass = "gradient-blue-actual-black";
             }
         }
-        <div class="@divClass">
+        <div class="@divClass" id="@game.Slug">
             <div class="horizontal-content image-first-mobile">
                 @if (i % 2 == 0)
                 {
@@ -58,3 +58,17 @@
         </div>
     }
 }
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (!window.location.hash) return;
+
+        const element = document.querySelector(window.location.hash);
+
+        if (!element) return;
+
+        element.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    });
+</script>

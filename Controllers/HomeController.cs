@@ -13,6 +13,7 @@ namespace GameStudioSite.Controllers
             _logger = logger;
         }
 
+        [Route("/")]
         public IActionResult Index()
         {
             var viewModel = new HomeIndexViewModel
@@ -25,6 +26,7 @@ namespace GameStudioSite.Controllers
             return View(viewModel);
         }
 
+        [Route("/Privacy")]
         public IActionResult Privacy()
         {
             return View();
@@ -36,16 +38,19 @@ namespace GameStudioSite.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [Route("/Games")]
         public IActionResult Games()
         {
             return View(GameSeedData.All());
         }
 
+        [Route("/Services")]
         public IActionResult Services()
         {
             return View(ServiceSeedData.All);
         }
 
+        [Route("/About")]
         public IActionResult About()
         {
             return View();

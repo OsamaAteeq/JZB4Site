@@ -11,7 +11,7 @@
         {
             var service = Model[i];
             <div class="transparent-background">
-                <div class="horizontal-content image-first-mobile">
+                <div class="horizontal-content image-first-mobile" id="@service.Slug">
                     @if (i % 2 == 0)
                     {
                         <div class="vertical-content">
@@ -40,7 +40,7 @@
         {
             var service = Model[i];
             <div class="transparent-background">
-                <div class="horizontal-content image-first-mobile">
+                <div class="horizontal-content image-first-mobile" id="@service.Slug">
                     @if (i % 2 == 0)
                     {
                         <div class="vertical-content">
@@ -67,3 +67,17 @@
     <div class="gradient-black-actual-black">
     </div>
 }
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (!window.location.hash) return;
+
+        const element = document.querySelector(window.location.hash);
+
+        if (!element) return;
+
+        element.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    });
+</script>
