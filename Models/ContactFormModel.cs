@@ -23,19 +23,15 @@ namespace GameStudioSite.Models
         [StringLength(2000, MinimumLength = 10, ErrorMessage = "Message should be at least 10 characters.")]
         public string Message { get; set; } = "";
 
-        public string? Website { get; set; } // honeypot
-
-        // Convenience property, not bound from the form — used wherever you need the full name
         public string FullName => $"{FirstName} {LastName}".Trim();
 
-        // The dropdown options, kept alongside the model so the view and any validation stay in sync
         public static readonly List<string> SubjectOptions = new()
         {
-            "Services",
             "Game Ideas",
             "Information",
-            "Feedback / Complaint",
-            "Other"
+            "Feedback / Complaint"
         };
+
     }
+
 }

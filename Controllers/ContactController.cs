@@ -7,11 +7,19 @@ namespace GameStudioSite.Controllers
     public class ContactController : Controller
     {
         private readonly IEmailService _emailService;
+        private readonly IConfiguration _config;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<ContactController> _logger;
 
-        public ContactController(IEmailService emailService, ILogger<ContactController> logger)
+        public ContactController(
+            IEmailService emailService,
+            IConfiguration config,
+            IHttpClientFactory httpClientFactory,
+            ILogger<ContactController> logger)
         {
             _emailService = emailService;
+            _config = config;
+            _httpClientFactory = httpClientFactory;
             _logger = logger;
         }
 
@@ -19,6 +27,7 @@ namespace GameStudioSite.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.Submitted = TempData["ContactFormSubmitted"] != null;
             return View(new ContactFormModel());
         }
 
@@ -27,14 +36,17 @@ namespace GameStudioSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(ContactFormModel form)
         {
-            // Honeypot check — if this hidden field has anything in it, it's a bot. Pretend success, do nothing.
-            if (!string.IsNullOrEmpty(form.Website))
-            {
-                return RedirectToAction("Success");
-            }
-
             if (!ModelState.IsValid)
             {
+                return View(form);
+            }
+
+            var turnstileToken = Request.Form["cf-turnstile-response"];
+            var isHuman = await VerifyTurnstileAsync(turnstileToken);
+
+            if (!isHuman)
+            {
+                ModelState.AddModelError("", "Verification failed. Please try again.");
                 return View(form);
             }
 
@@ -49,13 +61,40 @@ namespace GameStudioSite.Controllers
                 return View(form);
             }
 
-            return RedirectToAction("Success");
+            TempData["ContactFormSubmitted"] = true;
+            return RedirectToAction("Index"); // redirects to /Contact, not a separate Success page
         }
 
-        [Route("/Contact/Success")]
-        public IActionResult Success()
+        private async Task<bool> VerifyTurnstileAsync(string? token)
         {
-            return View();
+            if (string.IsNullOrEmpty(token))
+            {
+                return false;
+            }
+
+            var client = _httpClientFactory.CreateClient();
+            var secretKey = _config["Turnstile:SecretKey"];
+
+            var response = await client.PostAsync(
+                "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+                new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    ["secret"] = secretKey ?? "",
+                    ["response"] = token
+                }));
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return false;
+            }
+
+            var json = await response.Content.ReadFromJsonAsync<TurnstileVerifyResponse>();
+            return json?.Success ?? false;
         }
+    }
+
+    public class TurnstileVerifyResponse
+    {
+        public bool Success { get; set; }
     }
 }

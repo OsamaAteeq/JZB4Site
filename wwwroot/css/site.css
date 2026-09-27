@@ -83,9 +83,17 @@ a {
         color: var(--color-lavender-light);
     }
 
-img {
-    opacity: 70%;
+input, textarea {
+    opacity: 80%;
+    transition: opacity 0.2s ease;
 }
+    input:focus, textarea:focus {
+        opacity: 1;
+    }
+
+    img {
+        opacity: 70%;
+    }
 
 /* Header / Nav */
 .site-header {
@@ -381,6 +389,7 @@ img {
 
     .horizontal-content img {
         width: 40%;
+        border-radius: 8px;
         object-fit: cover;
     }
     .bright-contain img{
@@ -849,9 +858,11 @@ img {
     /* Contact form */
 
 .contact-form {
-    max-width: 600px;
+    flex-direction: column;
+    max-width: 768px;
     margin: 2rem auto;
     text-align: left;
+    justify-content: center;
 }
 
 .form-group {
@@ -862,6 +873,11 @@ img {
         display: block;
         font-weight: 600;
         margin-bottom: 0.4rem;
+    }
+    .form-group.center 
+    {
+        display: flex;
+        justify-content: center;
     }
 
 .form-control {
@@ -897,14 +913,181 @@ img {
     resize: vertical; /* allows vertical resize only, blocks horizontal */
 }
 
-
-.honeypot-field {
-    position: absolute;
-    left: -9999px;
-    opacity: 0;
-    pointer-events: none;
+.attach-top {
+    margin-bottom: auto;
+    display: inherit;
+    flex-direction: inherit;
 }
 
+.contact-block h3 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+}
+.contact-block {
+    align-items: flex-start;
+    margin-block: 2rem;
+}
+
+    .contact-block a {
+        font-size: large;
+        font-weight: 600;
+        transition: font-size 0.2s ease;
+    }
+
+    .contact-block a:hover {
+        font-size: larger;
+    }
+
+.contact-info {
+    display: inherit;
+    flex-direction: inherit;
+    margin-top: 1.5rem;
+}
+.map {
+    margin-top: 2rem;
+    width: 100%;
+    border-radius: 8px;
+    aspect-ratio: 4/3;
+    max-width: 400px;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+    .map:hover 
+    {
+        opacity: 1;
+    }
+
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: var(--color-white);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.turnstile-container {
+    display: flex;
+    flex: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.turnstile-decorator {
+    overflow: hidden;
+    height: 65px;
+    border-radius: 8px;
+    opacity: 80%;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#contact-submit-btn:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+/* Nested Dropdown */
+
+.nested-select {
+    position: relative;
+    width: 100%;
+    color: var(--color-black);
+}
+
+.nested-select-trigger {
+    width: 100%;
+    text-align: left;
+    padding: 0.6rem;
+    border: 1px solid var(--color-lavender);
+    border-radius: 6px;
+    background: var(--color-white);
+    font-family: var(--font-body);
+    cursor: pointer;
+    opacity: 80%;
+    transition: opacity 0.2s ease;
+}
+
+    .nested-select-trigger:focus {
+        opacity: 100%;
+    }
+    .nested-select-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-white);
+    border: 1px solid var(--color-lavender);
+    border-radius: 6px;
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 4px 0;
+    z-index: 20;
+}
+
+.nested-select.open .nested-select-options {
+    display: block;
+}
+
+.nested-select-options li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    position: relative;
+}
+
+    .nested-select-options li:hover {
+        background: var(--color-lavender-light);
+    }
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background: var(--color-white);
+    border: 1px solid var(--color-lavender);
+    border-radius: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    min-width: 200px;
+    z-index: 30; /* explicit, high enough to always paint above sibling li's in the overlap area */
+}
+
+.has-submenu {
+    position: relative; /* makes this li the anchor point for its .submenu, instead of the whole list */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1; /* lifts this row (and its submenu) above sibling li's when hovered/open */
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .has-submenu:hover .submenu {
+        display: block;
+    }
+}
+
+@media not all and (hover: hover) {
+    .has-submenu.submenu-open .submenu {
+        display: block;
+        position: static;
+        border: none;
+        box-shadow: none;
+        padding-left: 1rem;
+        min-width: 0;
+    }
+}
 
 /* Small desktop / laptop */
 @media (max-width: 1200px) {
@@ -935,7 +1118,16 @@ img {
         flex-direction: column;
         flex: 1;
     }
+    .horizontal-content.wide {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
+        .horizontal-content.wide .vertical-content 
+        {
+            width: 100%;
+        }
 }
 
 

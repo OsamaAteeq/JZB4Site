@@ -22,7 +22,8 @@ namespace GameStudioSite.Services
             message.From.Add(new MailboxAddress(smtpSection["FromName"], smtpSection["FromAddress"]));
             message.To.Add(MailboxAddress.Parse(smtpSection["ToAddress"]));
             message.ReplyTo.Add(new MailboxAddress(form.FullName, form.Email));
-            message.Subject = $"Form Entry - {form.Subject}";
+            message.Subject = $"[Form Entry] - {form.Subject}";
+
 
             var bodyBuilder = new BodyBuilder
             {
@@ -52,7 +53,7 @@ namespace GameStudioSite.Services
                             $"Name: {form.FullName}\n" +
                             $"Email: {form.Email}\n" +
                             $"Subject: {form.Subject}\n\n" +
-                            $"Message:\n{form.Message}"
+                            $"\nMessage:\n{form.Message}"
             };
 
             message.Body = bodyBuilder.ToMessageBody();
