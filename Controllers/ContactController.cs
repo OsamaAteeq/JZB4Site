@@ -25,10 +25,25 @@ namespace GameStudioSite.Controllers
 
         [Route("/Contact")]
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string? subject)
         {
+            // Arrived via a service button: stash the value and redirect to the clean URL
+            if (!string.IsNullOrEmpty(subject))
+            {
+                TempData["PrefillSubject"] = subject;
+                return RedirectToAction("Index");
+            }
+
             ViewBag.Submitted = TempData["ContactFormSubmitted"] != null;
-            return View(new ContactFormModel());
+
+            // Reading TempData consumes it, so a reload sees nothing and the dropdown starts empty
+            var validSubjects = ServiceSeedData.All.Select(s => $"Services: {s.Title}");
+            validSubjects = validSubjects.Concat(ContactFormModel.SubjectOptions);
+
+            var prefillValue = TempData["PrefillSubject"] as string;
+            var prefill = prefillValue != null && validSubjects.Contains(prefillValue) ? prefillValue : "";
+
+            return View(new ContactFormModel { Subject = prefill });
         }
 
         [Route("/Contact")]
@@ -62,7 +77,7 @@ namespace GameStudioSite.Controllers
             }
 
             TempData["ContactFormSubmitted"] = true;
-            return RedirectToAction("Index"); // redirects to /Contact, not a separate Success page
+            return Redirect("/Contact#contact-form"); // redirects to /Contact, not a separate Success page
         }
 
         private async Task<bool> VerifyTurnstileAsync(string? token)

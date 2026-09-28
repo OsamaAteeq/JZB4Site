@@ -177,6 +177,29 @@ input, textarea {
     overflow: hidden;
 }
 
+.image-background {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    clip-path: inset(0);
+}
+
+    .image-background img {
+        position: fixed;
+        top: 0vh;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        opacity: 0.3;
+        z-index: -2;
+    }
+
+    .image-background.active img {
+        opacity: 0.3;
+    }
+
 /* Call to Action*/
 .cta {
     flex: 1;
