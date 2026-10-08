@@ -48,6 +48,7 @@
                 _ => "header-image"
             };
         }
+
     <div class="@(ViewData["FixedHero"] as bool? == true ? "hero" : "hero-small")">
         <header class="site-header">
             <a class="logo" asp-controller="Home" asp-action="Index">

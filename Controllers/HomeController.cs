@@ -1,16 +1,20 @@
-using System.Diagnostics;
+using GameStudioSite.Data;
 using GameStudioSite.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace GameStudioSite.Controllers
 {
+    
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly GameRepository _gameRepository;
+        private readonly BlogPostRepository _blogPostRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(GameRepository gameRepository, BlogPostRepository blogPostRepository)
         {
-            _logger = logger;
+            _gameRepository = gameRepository;
+            _blogPostRepository = blogPostRepository;
         }
 
         [Route("/")]
@@ -19,8 +23,8 @@ namespace GameStudioSite.Controllers
             var viewModel = new HomeIndexViewModel
             {
                 Services = ServiceSeedData.All,
-                LatestGames = GameSeedData.GetLatest(3),
-                LatestBlogPosts = BlogPostSeedData.GetLatest(2)
+                LatestGames = _gameRepository.GetLatest(3),
+                LatestBlogPosts = _blogPostRepository.GetLatest(2)
             };
 
             return View(viewModel);
@@ -41,7 +45,7 @@ namespace GameStudioSite.Controllers
         [Route("/Games")]
         public IActionResult Games()
         {
-            return View(GameSeedData.All());
+            return View(_gameRepository.GetAll());
         }
 
         [Route("/Services")]

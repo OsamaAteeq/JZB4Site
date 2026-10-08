@@ -8,6 +8,11 @@
     <div class="dark-background">
         <div class="vertical-content">
             <h2>Latest Games</h2>
+            @if (Model.LatestGames.Count == 0)
+            {
+                    <h3>Sorry</h3>
+                    <h4>We have no games now</h4>
+            }
             <div class="game-grid">
                 @foreach (var game in Model.LatestGames)
                 {
@@ -75,12 +80,18 @@
     </div>
     <div class="light-background">
         <h2>Latest Updates</h2>
+        @if (Model.LatestBlogPosts.Count == 0)
+        {
+            <h3>Sorry</h3>
+            <h4>We have no updates now</h4>
+        }
         <div class="update-grid">
             @foreach (var update in Model.LatestBlogPosts)
             {
                 <a class="update-card"
-                   asp-controller="Update"
-                   asp-action="@update.Slug">
+                   asp-controller="Updates"
+                   asp-action="Details"
+                   asp-route-slug="@update.Slug">
                     <div class="update-card-image">
                         <img src="@update.FeaturedImageUrl" alt="@update.ImageAltText"/>
                     </div>
