@@ -1097,9 +1097,9 @@ input, textarea {
 
 /* Post page CSS*/
 
-.post-page {
-    max-width: 800px;
-    margin: 0 auto;
+.constrained 
+{
+    width: fit-content;
 }
 
 .post-hero {
@@ -1108,6 +1108,7 @@ input, textarea {
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 2rem;
+    height: 50vh;
     min-height: 320px;
     display: flex;
     align-items: flex-end;
@@ -1118,19 +1119,25 @@ input, textarea {
     background: linear-gradient(180deg, transparent 0%, rgba(2, 2, 18, 0.95) 100%);
     padding: 3rem 2rem 2rem;
     color: var(--color-white);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.category-badge {
-    display: inline-block;
-    background-color: var(--color-accent-cyan);
-    color: var(--color-navy-black);
-    padding: 0.25rem 0.75rem;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-}
+    .post-hero-overlay .post-meta {
+        margin-left: auto;
+    }
+
+    .category-badge {
+        display: inline-block;
+        background-color: var(--color-accent-cyan);
+        color: var(--color-navy-black);
+        padding: 0.25rem 0.75rem;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
 
 .post-title {
     font-size: 2.2rem;
@@ -1166,6 +1173,8 @@ input, textarea {
     gap: 0.5rem;
     flex-wrap: wrap;
     margin: 2rem 0;
+    margin-top: 0;
+    justify-content: center;
 }
 
 .tag-badge {
@@ -1216,6 +1225,100 @@ input, textarea {
     display: block;
     margin: 1.5rem auto;
     max-width: 100%;
+}
+
+.post-content .ql-align-center {
+    text-align: center;
+}
+
+.post-content .ql-align-right {
+    text-align: right;
+}
+
+.post-content .ql-align-justify {
+    text-align: justify;
+}
+
+.post-header-plain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Social CSS */
+.share-section {
+    margin: 2rem 0 1.5rem;
+}
+
+.share-title {
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+}
+
+.share-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.share-icon {
+    display: inline-block;
+    width: 50px;
+    height: 35px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+    .share-icon:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
+
+    .share-icon svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+.share-linkedin {
+    background-color: #0077b5;
+}
+
+.share-facebook {
+    background-color: #0765fe;
+}
+
+.share-instagram {
+    background: #833ab4;
+    background: linear-gradient( to right, #833ab4,#fd1d1d,#fcb045 );
+}
+
+.share-twitter {
+    background-color: #55acee;
+}
+
+.share-whatsapp {
+    background-color: #55eb4c;
+}
+
+.share-reddit {
+    background-color: #ff5700;
+}
+
+.share-tumblr {
+    background-color: #29435d;
+}
+
+.share-copy {
+    background-color: #ffc112;
+}
+
+.share-more {
+    background-color: #ee8e2d;
 }
 
 /* Media Queries */

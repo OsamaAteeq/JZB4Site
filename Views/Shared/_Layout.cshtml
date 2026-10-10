@@ -16,6 +16,15 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @RenderSection("Head", required: false)
+    @section Head {
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="@Model.Title" />
+        <meta property="og:description" content="@Model.Excerpt" />
+        <meta property="og:url" content="@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}")" />
+        <meta property="og:image" content="@($"{Context.Request.Scheme}://{Context.Request.Host}{Model.FeaturedImageUrl}")" />
+        <meta name="twitter:card" content="summary_large_image" />
+    }
 </head>
 <body>
     @{
@@ -49,7 +58,7 @@
             };
         }
 
-    <div class="@(ViewData["FixedHero"] as bool? == true ? "hero" : "hero-small")">
+    <div class="@(ViewData["Heroless"] as bool? == true ? "" : ViewData["FixedHero"] as bool? == true ? "hero" : "hero-small")">
         <header class="site-header">
             <a class="logo" asp-controller="Home" asp-action="Index">
                 <img src="~/images/JZB4-Logo-512-Rounded.png" alt="JZB4 rounded logo" />
@@ -83,6 +92,10 @@
                     <h1 class="slogan">@ViewData["HeroText"]</h1>
                 </div>
             }
+            else if (ViewData["Heroless"] as bool? == true)
+            {
+
+            }
             else
             {
                 <div class="hero-content">
@@ -92,8 +105,16 @@
 
         }
 
+        @if (ViewData["Heroless"] as bool? == true)
+        {
+            <div class="@gradient" style="margin-top:-5vh;">
+            </div>
+        }
+        else
+        {
         <div class="@gradient">
         </div>
+        }
     </div>
     <main class="main-content">
         @RenderBody()

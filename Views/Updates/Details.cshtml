@@ -1,43 +1,94 @@
 ﻿@model GameStudioSite.Models.BlogPost
 @{
     ViewData["HeroImage"] = @Model.FeaturedImageUrl;
-    ViewData["Hero"]
+    ViewData["Heroless"] = true;
 }
 <div class="dark-background">
+    <div class="vertical-content">
+        <div class="constrained">
     @if (Model.ShowImage)
     {
         <div class="post-hero" style="background-image: url('@Model.FeaturedImageUrl');">
             <div class="post-hero-overlay">
                 <span class="category-badge">@Model.Category</span>
-                <h1 class="post-title">@Model.Title</h1>
                 <div class="post-meta">
                     <span>@Model.PublishedDate.ToString("MMMM d, yyyy")</span>
                 </div>
             </div>
         </div>
+        <div class="center-text">
+                <h1 class="post-title">@Model.Title</h1>
+                </div>
     }
     else
     {
         <header class="post-header-plain">
-            <span class="category-badge">@Model.Category</span>
             <h1 class="post-title">@Model.Title</h1>
-            <div class="post-meta">
-                <span>@Model.PublishedDate.ToString("MMMM d, yyyy")</span>
-            </div>
         </header>
     }
-@if (Model.Tags.Any())
-{
-    <div class="post-tags">
-        @foreach (var tag in Model.Tags)
-        {
-            <span class="tag-badge">@tag</span>
-        }
-    </div>
-}
+    @if (Model.Tags.Any())
+    {
+        <div class="post-tags">
+            @foreach (var tag in Model.Tags)
+            {
+                <span class="tag-badge">@tag</span>
+            }
+        </div>
+    }
 <article class="post-page">
     <div class="post-content">
         @Html.Raw(Model.ContentHtml)
     </div>
 </article>
+    @if (!Model.ShowImage)
+    {
+        <div class="post-hero-overlay">
+        <span class="category-badge">@Model.Category</span>
+        <div class="post-meta">
+            <span>@Model.PublishedDate.ToString("MMMM d, yyyy")</span>
+        </div>
+                </div>
+    }
+
+            <partial name="_ShareButtons" model="Model.Title" />
 </div>
+</div>
+</div>
+<div class="gradient-black-actual-black"></div>
+
+@section Scripts {
+    <script>
+        // Copy-link buttons (also used by Instagram, which has no share URL)
+        document.querySelectorAll('[data-copy-url]').forEach(function (btn) {
+            btn.addEventListener('click', async function () {
+                const url = btn.dataset.copyUrl;
+                try {
+                    await navigator.clipboard.writeText(url);
+                    if(btn.classList.contains("share-instagram") )
+                    {
+                        alert('Link Copied! \nOpening Instagram');
+                    }
+                    else
+                    {
+                        alert('Link Copied!');
+                    }
+                    
+                } catch {
+                    prompt('Copy this link:', url);
+                }
+                if (btn.dataset.open) {
+                    window.open(btn.dataset.open, '_blank', 'noopener');
+                }
+            });
+        });
+
+        // "+" button opens the device's share sheet, only shown where the browser supports it
+        const nativeBtn = document.getElementById('native-share-btn');
+        if (navigator.share) {
+            nativeBtn.style.display = 'inline-block';
+            nativeBtn.addEventListener('click', function () {
+                navigator.share({ title: nativeBtn.dataset.title, url: nativeBtn.dataset.url });
+            });
+        }
+    </script>
+}
