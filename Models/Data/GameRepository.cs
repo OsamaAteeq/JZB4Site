@@ -14,7 +14,9 @@ namespace GameStudioSite.Data
 
         public List<Game> GetAll()
         {
-            return _games.Find(_ => true).ToList();
+            return _games.Find(_ => true)
+        .SortByDescending(g => g.Id)   // newest first, same ordering GetLatest already uses
+        .ToList();
         }
 
         public List<Game> GetLatest(int count)

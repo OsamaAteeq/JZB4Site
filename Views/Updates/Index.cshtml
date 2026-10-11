@@ -28,6 +28,7 @@
             <a class="update-list-card"
                asp-controller="Updates"
                asp-action="Details"
+               asp-route-category="@update.Category"
                asp-route-slug="@update.Slug">
                 <div class="update-list-card-image">
                     <img src="@update.FeaturedImageUrl" alt="@update.ImageAltText" />

@@ -33,9 +33,9 @@ namespace GameStudioSite.Controllers
             return View(viewModel);
         }
 
-        [Route("/Updates/{slug}")]
+        [Route("{category}/{slug}")]
         [HttpGet]
-        public IActionResult Details(string slug)
+        public IActionResult Details(string category, string slug)
         {
             var post = _blogPostRepository.GetBySlug(slug);
             if (post == null)
