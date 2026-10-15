@@ -178,8 +178,7 @@
         }
 
                 document.getElementById('update-form').addEventListener('submit', function () {
-            // Quill always keeps an empty paragraph after a trailing embed; drop trailing empty ones
-            hiddenInput.value = quill.root.innerHTML.replace(/(\s*<p>(<br\s*\/?>|\s|&nbsp;)*<\/p>)+\s*$/i, '');
+            hiddenInput.value = quill.root.innerHTML;
         });
     </script>
 }
